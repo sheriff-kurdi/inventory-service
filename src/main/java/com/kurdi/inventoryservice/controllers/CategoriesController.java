@@ -23,7 +23,7 @@ public class CategoriesController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> addAuthority(@RequestBody Category category)
+    public ResponseEntity<Category> add(@RequestBody Category category)
     {
 
         return new ResponseEntity<>(categoriesRepository.save(category), HttpStatus.CREATED);
