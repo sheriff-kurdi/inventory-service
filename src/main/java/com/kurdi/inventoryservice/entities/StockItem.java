@@ -19,13 +19,13 @@ public class StockItem {
     //stock keeping unit.
     @Id
     String SKU = new GUIDGenerator().toString();
+    Integer SupplierIdentity;
     String name;
     String description;
     double costPrice;
     double sellingPrice;
     boolean isDiscounted;
     double discount;
-
     @ManyToMany(fetch = FetchType.EAGER)
     Set<Category> categories;
 

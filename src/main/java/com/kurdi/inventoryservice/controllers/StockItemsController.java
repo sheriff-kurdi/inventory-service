@@ -2,6 +2,8 @@ package com.kurdi.inventoryservice.controllers;
 
 import com.kurdi.inventoryservice.entities.StockItem;
 import com.kurdi.inventoryservice.repositories.StockItemsRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import java.util.List;
 
 @SuppressWarnings("unused")
 @RestController
+@RequestMapping("/inventory/")
 public class StockItemsController {
     @Autowired
     StockItemsRepository stockItemsRepository;
@@ -34,12 +37,14 @@ public class StockItemsController {
     }
 
     @PostMapping
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<StockItem> add(@RequestBody StockItem stockItem)
     {
         return new ResponseEntity<>(stockItemsRepository.save(stockItem), HttpStatus.CREATED);
     }
 
     @PutMapping("{sku}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<StockItem> update(@RequestBody StockItem stockItem, @PathVariable String sku)
     {
         if(!stockItem.getSKU().equals(sku))
@@ -55,6 +60,7 @@ public class StockItemsController {
     }
 
     @DeleteMapping("{sku}")
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<StockItem> delete(@RequestBody StockItem stockItem, @PathVariable String sku)
     {
         if(!stockItem.getSKU().equals(sku))
