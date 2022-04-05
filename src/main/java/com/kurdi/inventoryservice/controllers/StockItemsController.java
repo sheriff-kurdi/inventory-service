@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,7 +41,9 @@ public class StockItemsController {
     @PostMapping
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     public ResponseEntity<StockItem> add(@RequestBody StockItem stockItem)
-    {
+    {   Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Integer identity = Integer.parseInt(auth.getPrincipal().toString());
+        stockItem.setSupplierIdentity(identity);
         return new ResponseEntity<>(stockItemsRepository.save(stockItem), HttpStatus.CREATED);
     }
 
