@@ -60,6 +60,13 @@ public class StockItemsController {
             return new ResponseEntity<>(stockItem, HttpStatus.NOT_FOUND);
 
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Integer identity = Integer.parseInt(auth.getPrincipal().toString());
+        if(!stockItemsRepository.getById(sku).getSupplierIdentity().equals(identity))
+        {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+
+        }
         return new ResponseEntity<>(stockItemsRepository.save(stockItem), HttpStatus.OK);
     }
 
@@ -74,6 +81,14 @@ public class StockItemsController {
         if(!stockItemsRepository.existsById(sku))
         {
             return new ResponseEntity<>(stockItem, HttpStatus.NOT_FOUND);
+
+        }
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Integer identity = Integer.parseInt(auth.getPrincipal().toString());
+        if(!stockItemsRepository.getById(sku).getSupplierIdentity().equals(identity))
+        {
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 
         }
         stockItemsRepository.delete(stockItem);
