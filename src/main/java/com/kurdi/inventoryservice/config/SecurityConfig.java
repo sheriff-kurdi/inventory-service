@@ -35,11 +35,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .mvcMatchers("/inventory/**")
                 .hasAnyAuthority("supplier")
-
-                .mvcMatchers("/categories/**")
-                .hasAnyAuthority("admin")
                 .mvcMatchers(HttpMethod.GET,"/categories/**")
-                .permitAll();
+                .permitAll()
+                .mvcMatchers("/categories/**")
+                .hasAnyAuthority("admin");
 
 
     }

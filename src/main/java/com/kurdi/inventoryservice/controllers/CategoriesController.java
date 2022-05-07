@@ -37,9 +37,15 @@ public class CategoriesController {
 
     @PutMapping("{name}")
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
-    public ResponseEntity<Category> update(@PathVariable String name)
+    public ResponseEntity<Category> update(@PathVariable String name, @RequestParam String newName)
     {
-        return new ResponseEntity<>(categoriesRepository.save(Category.builder().name(name).build()), HttpStatus.OK);
+        if(!categoriesRepository.existsById(name))
+        {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+        }
+        categoriesRepository.delete(categoriesRepository.getById(name));
+        return new ResponseEntity<>(categoriesRepository.save(Category.builder().name(newName).build()), HttpStatus.OK);
     }
 
     @DeleteMapping("{name}")
