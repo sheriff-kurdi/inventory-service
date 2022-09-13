@@ -1,6 +1,6 @@
 package com.kurdi.inventoryservice.controllers;
 
-import com.kurdi.inventoryservice.entities.StockItem;
+import com.kurdi.inventoryservice.entities.stock.StockItem;
 import com.kurdi.inventoryservice.repositories.StockItemsRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -1,6 +1,6 @@
 package com.kurdi.inventoryservice.controllers;
 
-import com.kurdi.inventoryservice.entities.Category;
+import com.kurdi.inventoryservice.entities.categories.Category;
 import com.kurdi.inventoryservice.repositories.CategoriesRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -23,6 +23,7 @@ public class CategoriesController {
     @GetMapping
     public List<Category> getAll()
     {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         return  categoriesRepository.findAll();
     }
