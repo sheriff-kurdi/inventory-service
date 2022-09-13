@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 @SuppressWarnings("unused")
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "My API", version = "v1"))
+@OpenAPIDefinition(info = @Info(title = "Inventory Service API", version = "v1"))
 @SecurityScheme(
         name = "bearerAuth",
         type = SecuritySchemeType.HTTP,

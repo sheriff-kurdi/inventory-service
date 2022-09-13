@@ -72,17 +72,14 @@ public class StockItemsController {
 
     @DeleteMapping("{sku}")
     @Operation(security = @SecurityRequirement(name = "bearerAuth"))
-    public ResponseEntity<StockItem> delete(@RequestBody StockItem stockItem, @PathVariable String sku)
+    public ResponseEntity<StockItem> delete(@PathVariable String sku)
     {
-        if(!stockItem.getSKU().equals(sku))
-        {
-            return new ResponseEntity<>(stockItem, HttpStatus.BAD_REQUEST);
-        }
         if(!stockItemsRepository.existsById(sku))
         {
-            return new ResponseEntity<>(stockItem, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
         }
+        StockItem stockItem = stockItemsRepository.getById(sku);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Integer identity = Integer.parseInt(auth.getPrincipal().toString());
